@@ -1,8 +1,3 @@
-Q) df.info() was outputted before the written text. Why?
-```python
-print("Data type of each column:",df.info())
-```
-
 ### Data Profiling
 #### 1. Data type
 - Mortgage is of int64 type but I think it needs to be float64 like income.
@@ -38,18 +33,45 @@ Note:
 ## Exploratory Data Analysis
 
 Main Influencers of Personal Loan:
-1. Income (+ve)
-2. Education (+ve) (-ve with income)
+1. Income (+ve relation with Personal Loan)
+2. Education (+ve relation with Personal Loan) (-ve with income)
 
 Other significant influencers of Personal Loan:
-1. CCAvg (Monthly credit card expense) (+ve, +ve cuve-linear income)
-2. CD Account (+ve, +ve income)
+1. CCAvg (Monthly credit card expense) (+ve relation with Personal Loan, +ve cuve-linear income)
+2. CD Account (+ve relation with Personal Loan, +ve income)
 3. Home Ownership (rent is bad for getting loan)
-4. Mortgage (-ve, -ve curve-linear income)
-5. Gender (due to income distribution between genders)
+4. Mortgage (-ve relation with Personal Loan, -ve curve-linear income)
+5. Gender (effected Personal Loan due to income distribution between genders)
 
 ## Feature Enginnering
-1. Gender: One hot encoding/ Label Encoding
+1. Gender:  Label Encoding
 2. Zip code: drop
 3. Family :  Already has gone through Label Encoding 
-4. Home Ownership: One hot encoding/ Label Encoding
+4. Home Ownership: Label Encoding
+Split data into training and testing set in 7:3 ratio.
+
+## Modeling & Evaluation
+Trained KNN, Decision tree, SVM and Logistic Regression models on best found parameters which were identified using GridSearchCV.  Then evaluated there training & testing accuracy alongside plotting their confusion matrix. 
+
+1. KNN: False negatives seems to be a big problem for this KNN model.
+2. Decision Tree: Here, problem of false negative is substantially lower compared to KNN but the problem of false positive seems to have risen.
+3. SVM: This model has by far the best accuracy score of 95.02% but is a little worse compared to the Decision Tree model as the true positive is a little lower. It also took an exceptionally long time to train this model i.e. about 30 minutes, this is with optimization for best performance.
+4. Logistic Regression: This model has the highest false positives but is still better than the KNN model due to its lower false negative and higher true positives.
+### Model Comparison
+  
+| Model               | TestPerformance |
+| ------------------- | --------------- |
+| Logistic Regression | 0.9415421       |
+| SVM                 | 0.9502492       |
+| Decision Tree       | 0.9477613       |
+| K Near Neighbor     | 0.921642        |
+We can clearly see that the SVM model has the best accuracy of 95.02% but as it takes a very **long time to train**, i.e. about 30 min in my case, and has less true positives compared to the second best model i.e. Decision Tree model with 94.77% accuracy. I have decided that the Decision Tree model is better overall.
+
+
+## Model Export & Import
+The decision tree model which was considered the best was exported using joblib so that it could easily be access. This model was imported again using joblib to make some predictions.
+
+When we inputted best values for key attributes like. **Income, Home Ownership, CCAvg, Education, Mortgage & CD Account** and worst values for other irrelevant attributes, based on the Exploratory Data Analysis done before, it is predicated that loan application will be approved. 
+
+## Conclusion
+This shows that the relationship discovered between various factors were correct and the trained model is working accurately.
