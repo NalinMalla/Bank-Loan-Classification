@@ -1,7 +1,7 @@
 # %%
 import joblib
 
-# Load your trained Decision Tree model
+# Load trained Decision Tree model
 model = joblib.load('loan_approval_prediction_model.joblib')
 
 def get_user_input(prompt, input_type=str):
@@ -20,7 +20,7 @@ def main():
     print("Welcome to the Loan Acceptance Prediction Chatbot!")
     
     # Collect user inputs
-    name = income = get_user_input("Please enter your name: ", str)
+    name = get_user_input("Please enter your name: ", str)
     print("Hello "+name+", let me get some other information in order to predict if your loan application will be accepted or not.")
     
     #Required Attributes
@@ -53,8 +53,6 @@ def main():
     
     creditCard = get_user_input("If you have a credit card enter 1, else enter 0.\nDo you have a credit card? : ", int)
     
-    
-    # Add more inputs as required by your model
     
     # Make prediction
     features = [age,gender,experience,income,homeOwnership,family,ccavg,education,mortgage,securityAccount,cdAccount,online,creditCard]
