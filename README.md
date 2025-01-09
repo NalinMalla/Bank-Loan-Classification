@@ -3,7 +3,7 @@
 #### Description: 
 I was given a dataset of the bank loans and was tasked to build a machine-learning model that can accurately classify whether the personal loan was accepted or not based on the information provided. I also had to create a chatbot so that the users could easily access the ML model and get their bank loan acceptance predicted by entering pertinent details.
 
-You can run the chat bot by executing the following command in the project directory from a bash terminal.
+You can run the chat bot by executing the following command in the project directory from a bash terminal.<br>
 <code>python .\chat_bot.py</code>
 
 #### Dataset: 
